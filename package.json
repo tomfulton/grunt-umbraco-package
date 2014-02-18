@@ -1,0 +1,19 @@
+{
+  "name": "grunt-umbraco-package",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomfulton/grunt-umbraco-package.git"
+  },
+  "description": "A Grunt task to assist with creating Umbraco packages that can be installed through the Backoffice",
+  "author": "Tom Fulton",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "guid": "0.0.12",
+    "path": "~0.4.9",
+    "rimraf": "~2.2.6",
+    "adm-zip": "~0.4.4",
+    "fs-extra": "~0.8.1"
+  }
+}
