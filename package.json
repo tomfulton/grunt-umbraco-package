@@ -8,7 +8,7 @@
   "description": "A Grunt task to assist with creating Umbraco packages that can be installed through the Backoffice",
   "author": "Tom Fulton",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "grunt": "~0.4.2",
     "guid": "0.0.12",
     "path": "~0.4.9",
