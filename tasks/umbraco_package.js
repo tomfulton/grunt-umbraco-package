@@ -48,7 +48,9 @@ module.exports = function(grunt) {
 
 	// Load / transform XML Manifest
 	options.files = filesToPackage;
-	options.readmeContents = grunt.file.read(options.readme);
+	if (options.readme) {
+		options.readmeContents = grunt.file.read(options.readme);
+	}
 	var manifest = grunt.file.read(options.manifest);
 	manifest = grunt.template.process(manifest, {data: options});
 	grunt.file.write(path.join(options.sourceDir, "..\\", guidFolder, guidFolder, "package.xml"), manifest); // TODO: Probably shouldn't use sourceDir - what if under source control
