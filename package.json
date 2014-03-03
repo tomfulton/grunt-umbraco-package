@@ -15,5 +15,9 @@
     "rimraf": "~2.2.6",
     "adm-zip": "~0.4.4",
     "fs-extra": "~0.8.1"
+  },
+  "devDependencies": {
+    "nodeunit": "~0.8.6",
+    "grunt-contrib-nodeunit": "~0.3.2"
   }
 }
