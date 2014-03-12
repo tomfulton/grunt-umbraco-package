@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<umbPackage>
+  <info>
+    <package>
+      <name>Archetype</name>
+      <version>1.0.0</version>
+      <license url="MIT">MIT</license>
+      <url>https://github.com/imulus/Archetype</url>
+      <requirements>
+        <major>0</major>
+        <minor>0</minor>
+        <patch>0</patch>
+      </requirements>
+    </package>
+    <author>
+      <name>Imulus</name>
+      <website>http://imulus.com/</website>
+    </author>
+    <readme><![CDATA[Readme contents]]></readme>
+  </info>
+  <DocumentTypes />
+  <Templates />
+  <Stylesheets />
+  <Macros />
+  <DictionaryItems />
+  <Languages />
+  <DataTypes />
+  <control />
+  <Actions />
+  <files>
+    
+  </files>
+</umbPackage>
