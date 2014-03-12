@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 
 	// Create temp folder for package zip source
 	var guidFolder = Guid.create().toString();
-	var newDirName = path.join(options.sourceDir, "..\\" + guidFolder);
+	var newDirName = path.join(options.sourceDir, "../" + guidFolder);
 	fs.mkdirSync(newDirName);
 	newDirName = path.join(newDirName, guidFolder);
 	fs.mkdirSync(newDirName);
@@ -53,11 +53,11 @@ module.exports = function(grunt) {
 	}
 	var manifest = grunt.file.read(options.manifest);
 	manifest = grunt.template.process(manifest, {data: options});
-	grunt.file.write(path.join(options.sourceDir, "..\\", guidFolder, guidFolder, "package.xml"), manifest); // TODO: Probably shouldn't use sourceDir - what if under source control
+	grunt.file.write(path.join(options.sourceDir, "../", guidFolder, guidFolder, "package.xml"), manifest); // TODO: Probably shouldn't use sourceDir - what if under source control
 
 	// Zip
 	var zip = new AdmZip();
-	zip.addLocalFolder(path.join(options.sourceDir, "..\\", guidFolder));
+	zip.addLocalFolder(path.join(options.sourceDir, "../", guidFolder));
 	zip.writeZip(path.join(options.outputDir, packageFileName))
 	
 	function getFilesRecursive(dir) {
