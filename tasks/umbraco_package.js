@@ -11,7 +11,8 @@ module.exports = function(grunt) {
   	grunt.config.requires('umbracoPackage.options.readme');
   	grunt.config.requires('umbracoPackage.options.outputDir');
   	grunt.config.requires('umbracoPackage.options.sourceDir');
-var done = this.async();
+    
+    var done = this.async();
 	var Guid = require('guid');
 	var path = require('path');
 	var rimraf = require('rimraf');
