@@ -3,10 +3,10 @@
   "version": "0.0.6",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tobaiasjl/grunt-umbraco-package.git"
+    "url": "https://github.com/tomfulton/grunt-umbraco-package.git"
   },
   "description": "A Grunt task to assist with creating Umbraco packages that can be installed through the Backoffice",
-  "author": "Tobias Lopez",
+  "author": "Tom Fulton",
   "license": "MIT",
   "dependencies": {
     "archiver": "^0.14.3",
