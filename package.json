@@ -1,6 +1,6 @@
 {
   "name": "grunt-umbraco-package",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/tomfulton/grunt-umbraco-package.git"
@@ -9,11 +9,11 @@
   "author": "Tom Fulton",
   "license": "MIT",
   "dependencies": {
+    "archiver": "^0.14.3",
+    "fs-extra": "~0.8.1",
     "grunt": "~0.4.2",
     "guid": "0.0.12",
     "path": "~0.4.9",
-    "rimraf": "~2.2.6",
-    "adm-zip": "~0.4.4",
-    "fs-extra": "~0.8.1"
+    "rimraf": "~2.2.6"
   }
 }
