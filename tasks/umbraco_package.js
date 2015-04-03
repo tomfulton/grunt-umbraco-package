@@ -11,14 +11,12 @@ module.exports = function(grunt) {
   	grunt.config.requires('umbracoPackage.options.readme');
   	grunt.config.requires('umbracoPackage.options.outputDir');
   	grunt.config.requires('umbracoPackage.options.sourceDir');
-    
-    var done = this.async();
+
 	var Guid = require('guid');
 	var path = require('path');
 	var rimraf = require('rimraf');
-	var archiver = require('archiver');
-	var fs = require('fs');
-    var fse = require('fs-extra');
+	var AdmZip = require('adm-zip');
+	var fs = require('fs-extra');
 
     var options = this.options({
     	minimumUmbracoVersion: '',
@@ -37,17 +35,15 @@ module.exports = function(grunt) {
 
 	// Create temp folder for package zip source
 	var guidFolder = Guid.create().toString();
-	var newDirName = path.join(options.sourceDir, guidFolder);
+	var newDirName = path.join(options.sourceDir, "../" + guidFolder);
 	fs.mkdirSync(newDirName);
-    if (fs.existsSync(options.outputDir) == false) {
-      fs.mkdirSync(options.outputDir);
-    }
-    
+	newDirName = path.join(newDirName, guidFolder);
+	fs.mkdirSync(newDirName);
 
 	// Copy flatten structure, with files renamed as <guid>.<ext>
 	filesToPackage.forEach(function(f) {
 		var newFileName = f.name == "package.xml" ? f.name : f.guid.toString() + '.' + f.ext;
-		fse.copySync(path.join(options.sourceDir, f.dir, f.name), path.join(newDirName, newFileName));
+		fs.copySync(path.join(options.sourceDir, f.dir, f.name), path.join(newDirName, newFileName));
 	});
 
 	// Load / transform XML Manifest
@@ -57,33 +53,12 @@ module.exports = function(grunt) {
 	}
 	var manifest = grunt.file.read(options.manifest);
 	manifest = grunt.template.process(manifest, {data: options});
-	grunt.file.write(path.join(options.sourceDir, guidFolder, "package.xml"), manifest); // TODO: Probably shouldn't use sourceDir - what if under source control
+	grunt.file.write(path.join(options.sourceDir, "../", guidFolder, guidFolder, "package.xml"), manifest); // TODO: Probably shouldn't use sourceDir - what if under source control
 
 	// Zip
-    var tmpOutput = path.join(options.outputDir, packageFileName);
-    var tmpSource = path.join(options.sourceDir, guidFolder);
-    
-    var output = fs.createWriteStream(tmpOutput);
-    var archive = archiver('zip');
-
-    output.on('close', function() {
-      console.log(archive.pointer() + ' total bytes');
-      console.log('archiver has been finalized and the output file descriptor has closed.');
-      done(true);
-    });
-
-    archive.on('error', function(err) {
-      throw err;
-    });
-
-    archive.pipe(output);
-
-    archive.directory(tmpSource, false);
-    archive.finalize();
-    
-    
-	//zip.addLocalFolder(path.join(options.sourceDir, "../", guidFolder));
-	//zip.writeZip(path.join(options.outputDir, packageFileName))
+	var zip = new AdmZip();
+	zip.addLocalFolder(path.join(options.sourceDir, "../", guidFolder));
+	zip.writeZip(path.join(options.outputDir, packageFileName))
 	
 	function getFilesRecursive(dir) {
     	var files = fs.readdirSync(dir);
