@@ -19,6 +19,7 @@ module.exports = function(grunt) {
 	var archiver = require('archiver');
 	var fs = require('fs');
     var fse = require('fs-extra');
+    var chalk = require('chalk');
 
     var options = this.options({
     	minimumUmbracoVersion: '',
@@ -67,8 +68,7 @@ module.exports = function(grunt) {
     var archive = archiver('zip');
 
     output.on('close', function() {
-      console.log(archive.pointer() + ' total bytes');
-      console.log('archiver has been finalized and the output file descriptor has closed.');
+      console.log('Package created at ' + chalk.cyan(tmpOutput) + " (" + chalk.cyan(archive.pointer()).toString() + " bytes)");
       done(true);
     });
 
@@ -81,10 +81,6 @@ module.exports = function(grunt) {
     archive.directory(tmpSource, false);
     archive.finalize();
     
-    
-	//zip.addLocalFolder(path.join(options.sourceDir, "../", guidFolder));
-	//zip.writeZip(path.join(options.outputDir, packageFileName))
-	
 	function getFilesRecursive(dir) {
     	var files = fs.readdirSync(dir);
     	for (var i in files) {
