@@ -1,7 +1,7 @@
 grunt-umbraco-package
 =====================
 
-A grunt task to assist with creating Umbraco packages that can be installed in the Backoffice.
+A grunt task to assist with creating Umbraco packages that can be installed in The Backoffice™.
 
 # Installation
 
