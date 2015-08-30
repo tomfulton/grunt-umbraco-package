@@ -76,20 +76,6 @@ module.exports = function (grunt) {
 
     if (options.manifest) {
 
-      // Create temp folder for package zip source
-      var guidFolder = Guid.create().toString();
-      var newDirName = path.join(options.sourceDir, guidFolder);
-      fs.mkdirSync(newDirName);
-      if (fs.existsSync(options.outputDir) == false) {
-        fs.mkdirSync(options.outputDir);
-      }
-
-      // Copy flatten structure, with files renamed as <guid>.<ext>
-      filesToPackage.forEach(function (f) {
-        var newFileName = f.name == "package.xml" ? f.name : f.guid.toString();
-        fse.copySync(path.join(options.sourceDir, f.dir, f.name), path.join(newDirName, newFileName));
-      });
-
       // Load / transform XML Manifest
       options.files = filesToPackage;
       if (options.readme) {
@@ -97,12 +83,20 @@ module.exports = function (grunt) {
       }
       var manifest = grunt.file.read(options.manifest);
       manifest = grunt.template.process(manifest, { data: options });
-      grunt.file.write(path.join(options.sourceDir, guidFolder, "package.xml"), manifest); // TODO: Probably shouldn't use sourceDir - what if under source control
 
-      // Zip
-      var tmpSource = path.join(options.sourceDir, guidFolder);
+      // Append the manifest to the ZIP file
+      archive.append(manifest, { name:'package.xml' });
 
-      archive.directory(tmpSource, false);
+      // Append files from the source directory
+      filesToPackage.forEach(function(file) {
+
+        // Get the original path of the file
+        var src = path.join(options.sourceDir, file.dir, file.name);
+
+        // Append the file to the ZIP
+        archive.append(fs.createReadStream(src), { name: file.guid });
+      
+      });
     
     } else {
 
