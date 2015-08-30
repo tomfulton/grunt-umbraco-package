@@ -64,6 +64,23 @@ module.exports = function (grunt) {
       fs.mkdirSync(options.outputDir);
     }
 
+    // Initialize the archive and it's output stream
+    var output = fs.createWriteStream(tmpOutput);
+    var archive = archiver('zip');
+
+    // Listen for when the ZIP is closed
+    output.on('close', function () {
+      console.log('Package created at ' + chalk.cyan(tmpOutput) + " (" + chalk.cyan(archive.pointer()).toString() + " bytes)");
+      done(true);
+    });
+
+    // Listen for ZIP errors
+    archive.on('error', function (err) {
+      throw err;
+    });
+
+    // Set the output stream of the ZIP
+    archive.pipe(output);
 
     // Copy flatten structure, with files renamed as <guid>.<ext>
     filesToPackage.forEach(function (f) {
@@ -82,20 +99,6 @@ module.exports = function (grunt) {
 
     // Zip
     var tmpSource = path.join(options.sourceDir, guidFolder);
-
-    var output = fs.createWriteStream(tmpOutput);
-    var archive = archiver('zip');
-
-    output.on('close', function () {
-      console.log('Package created at ' + chalk.cyan(tmpOutput) + " (" + chalk.cyan(archive.pointer()).toString() + " bytes)");
-      done(true);
-    });
-
-    archive.on('error', function (err) {
-      throw err;
-    });
-
-    archive.pipe(output);
 
     archive.directory(tmpSource, false);
     archive.finalize();
