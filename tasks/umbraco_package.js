@@ -82,25 +82,34 @@ module.exports = function (grunt) {
     // Set the output stream of the ZIP
     archive.pipe(output);
 
-    // Copy flatten structure, with files renamed as <guid>.<ext>
-    filesToPackage.forEach(function (f) {
-      var newFileName = f.name == "package.xml" ? f.name : f.guid.toString();
-      fse.copySync(path.join(options.sourceDir, f.dir, f.name), path.join(newDirName, newFileName));
-    });
+    if (options.manifest) {
 
-    // Load / transform XML Manifest
-    options.files = filesToPackage;
-    if (options.readme) {
-      options.readmeContents = grunt.file.read(options.readme);
+      // Copy flatten structure, with files renamed as <guid>.<ext>
+      filesToPackage.forEach(function (f) {
+        var newFileName = f.name == "package.xml" ? f.name : f.guid.toString();
+        fse.copySync(path.join(options.sourceDir, f.dir, f.name), path.join(newDirName, newFileName));
+      });
+
+      // Load / transform XML Manifest
+      options.files = filesToPackage;
+      if (options.readme) {
+        options.readmeContents = grunt.file.read(options.readme);
+      }
+      var manifest = grunt.file.read(options.manifest);
+      manifest = grunt.template.process(manifest, { data: options });
+      grunt.file.write(path.join(options.sourceDir, guidFolder, "package.xml"), manifest); // TODO: Probably shouldn't use sourceDir - what if under source control
+
+      // Zip
+      var tmpSource = path.join(options.sourceDir, guidFolder);
+
+      archive.directory(tmpSource, false);
+    
+    } else {
+    
+      
+    
     }
-    var manifest = grunt.file.read(options.manifest);
-    manifest = grunt.template.process(manifest, { data: options });
-    grunt.file.write(path.join(options.sourceDir, guidFolder, "package.xml"), manifest); // TODO: Probably shouldn't use sourceDir - what if under source control
 
-    // Zip
-    var tmpSource = path.join(options.sourceDir, guidFolder);
-
-    archive.directory(tmpSource, false);
     archive.finalize();
 
     function getFilesRecursive(dir) {
