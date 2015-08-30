@@ -105,8 +105,76 @@ module.exports = function (grunt) {
       archive.directory(tmpSource, false);
     
     } else {
-    
-      
+
+      // Build the data for the package manifest
+      var data = {
+        info: {
+          package: {
+            name: options.name,
+            version: options.version,
+            license: {
+              '@': {
+                url: ''
+              },
+              '#': options.license
+            },
+            url: options.url,
+            requirements: {
+              major: 0,
+              minor: 0,
+              patch: 0
+            }
+          },
+          author: {
+            name: options.author
+          },
+          readme: options.readme
+        },
+        DocumentTypes: {},
+        Templates: {},
+        Stylesheets: {},
+        Macros: {},
+        DictionaryItems: {},
+        Languages: {},
+        DataTypes: {},
+        control: {},
+        Actions: {},
+        files: {},
+      };
+
+      // Set optional URLs in the manifest
+      if (options.licenseUrl) data.info.package.license['@'].url = options.licenseUrl;
+      if (options.authorUrl) data.info.author['website'] = options.authorUrl;
+
+      // Add files to the ZIP and manifest
+      if (filesToPackage.length > 0) {
+        data.files = [];
+
+        filesToPackage.forEach(function(file) {
+
+          // Get the original path of the file
+          var src = path.join(options.sourceDir, file.dir, file.name);
+
+          // Append the file to the ZIP
+          archive.append(fs.createReadStream(src), { name: file.guid });
+
+          // Append the file to the manifest
+          data.files.push({
+            guid: file.guid,
+            orgPath: file.dir,
+            orgName: file.name
+          });
+
+        });
+
+      }
+
+      // Append the manifest to the ZIP file
+      archive.append(xml('umbPackage', data, {
+        arrayMap: {
+          files: 'file'
+        }
+      }), { name:'package.xml' });
     
     }
 
