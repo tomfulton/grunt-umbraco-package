@@ -26,7 +26,8 @@ module.exports = function (grunt) {
       cwd: '/'
     });
 
-    var packageFileName = options.name + "_" + options.version + ".zip"
+    // Declare the name of the generated ZIP file
+    var packageFileName = options.outputName ? options.outputName : options.name + '_' + options.version + '.zip';
 
     // Gather files
     var filesToPackage = [];
