@@ -18,6 +18,7 @@ module.exports = function (grunt) {
     var fs = require('fs');
     var fse = require('fs-extra');
     var chalk = require('chalk');
+    var xml = require('js2xmlparser');
 
     var options = this.options({
       minimumUmbracoVersion: '',
