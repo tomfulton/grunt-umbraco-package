@@ -7,8 +7,6 @@ module.exports = function (grunt) {
     grunt.config.requires('umbracoPackage.options.url');
     grunt.config.requires('umbracoPackage.options.author');
     grunt.config.requires('umbracoPackage.options.authorUrl');
-    grunt.config.requires('umbracoPackage.options.manifest');
-    grunt.config.requires('umbracoPackage.options.readme');
     grunt.config.requires('umbracoPackage.options.outputDir');
     grunt.config.requires('umbracoPackage.options.sourceDir');
 
