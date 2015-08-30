@@ -32,6 +32,9 @@ module.exports = function (grunt) {
     // Declare the path of the generated ZIP file
     var tmpOutput = path.join(options.outputDir, packageFileName);
 
+    // Delete the ZIP file if it already exists (eg. already been generated for same version)
+    if (fs.existsSync(tmpOutput)) fs.unlinkSync(tmpOutput);
+
     // Gather files
     var filesToPackage = [];
     getFilesRecursive(options.sourceDir);
