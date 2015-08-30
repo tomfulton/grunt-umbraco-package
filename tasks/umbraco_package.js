@@ -29,6 +29,9 @@ module.exports = function (grunt) {
     // Declare the name of the generated ZIP file
     var packageFileName = options.outputName ? options.outputName : options.name + '_' + options.version + '.zip';
 
+    // Declare the path of the generated ZIP file
+    var tmpOutput = path.join(options.outputDir, packageFileName);
+
     // Gather files
     var filesToPackage = [];
     getFilesRecursive(options.sourceDir);
@@ -61,7 +64,6 @@ module.exports = function (grunt) {
     grunt.file.write(path.join(options.sourceDir, guidFolder, "package.xml"), manifest); // TODO: Probably shouldn't use sourceDir - what if under source control
 
     // Zip
-    var tmpOutput = path.join(options.outputDir, packageFileName);
     var tmpSource = path.join(options.sourceDir, guidFolder);
 
     var output = fs.createWriteStream(tmpOutput);
