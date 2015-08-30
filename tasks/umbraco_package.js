@@ -39,7 +39,21 @@ module.exports = function (grunt) {
     var filesToPackage = [];
     getFilesRecursive(options.sourceDir);
     filesToPackage = filesToPackage.map(function (f) {
-      return { guid: Guid.create(), dir: f.dir.replace(options.sourceDir, ''), name: f.name, ext: f.name.split('.').pop() };
+      return {
+        guid: f.name,
+        dir: f.dir.replace(options.sourceDir, ''),
+        name: f.name,
+        ext: f.name.split('.').pop()
+      };
+    });
+
+    // Avoid duplicate GUIDs
+    var guids = {};
+    filesToPackage.forEach(function(file) {
+      if (guids[file.guid]) {
+        file.guid = Guid.raw() + '_' + file.guid;
+      }
+      guids[file.guid] = true;
     });
 
     // Create temp folder for package zip source
@@ -53,7 +67,7 @@ module.exports = function (grunt) {
 
     // Copy flatten structure, with files renamed as <guid>.<ext>
     filesToPackage.forEach(function (f) {
-      var newFileName = f.name == "package.xml" ? f.name : f.guid.toString() + '.' + f.ext;
+      var newFileName = f.name == "package.xml" ? f.name : f.guid.toString();
       fse.copySync(path.join(options.sourceDir, f.dir, f.name), path.join(newDirName, newFileName));
     });
 
