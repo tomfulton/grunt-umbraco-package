@@ -56,14 +56,6 @@ module.exports = function (grunt) {
       guids[file.guid] = true;
     });
 
-    // Create temp folder for package zip source
-    var guidFolder = Guid.create().toString();
-    var newDirName = path.join(options.sourceDir, guidFolder);
-    fs.mkdirSync(newDirName);
-    if (fs.existsSync(options.outputDir) == false) {
-      fs.mkdirSync(options.outputDir);
-    }
-
     // Initialize the archive and it's output stream
     var output = fs.createWriteStream(tmpOutput);
     var archive = archiver('zip');
@@ -83,6 +75,14 @@ module.exports = function (grunt) {
     archive.pipe(output);
 
     if (options.manifest) {
+
+      // Create temp folder for package zip source
+      var guidFolder = Guid.create().toString();
+      var newDirName = path.join(options.sourceDir, guidFolder);
+      fs.mkdirSync(newDirName);
+      if (fs.existsSync(options.outputDir) == false) {
+        fs.mkdirSync(options.outputDir);
+      }
 
       // Copy flatten structure, with files renamed as <guid>.<ext>
       filesToPackage.forEach(function (f) {
