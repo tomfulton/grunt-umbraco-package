@@ -1,15 +1,5 @@
 module.exports = function (grunt) {
-  grunt.registerTask('umbracoPackage', 'Create Umbraco Package', function () {
-    grunt.config.requires('umbracoPackage.options.name');
-    grunt.config.requires('umbracoPackage.options.version');
-    grunt.config.requires('umbracoPackage.options.license');
-    grunt.config.requires('umbracoPackage.options.licenseUrl');
-    grunt.config.requires('umbracoPackage.options.url');
-    grunt.config.requires('umbracoPackage.options.author');
-    grunt.config.requires('umbracoPackage.options.authorUrl');
-    grunt.config.requires('umbracoPackage.options.outputDir');
-    grunt.config.requires('umbracoPackage.options.sourceDir');
-
+  grunt.registerMultiTask('umbracoPackage', 'Create Umbraco Package', function () {
     var done = this.async();
     var Guid = require('guid');
     var path = require('path');
@@ -25,6 +15,9 @@ module.exports = function (grunt) {
       files: [],
       cwd: '/'
     });
+
+    requireOptions(['name', 'version', 'license', 'licenseUrl', 'url', 'author', 'authorUrl'], options);
+    validateDirectories(this.files, options);
 
     // Declare the name of the generated ZIP file
     var packageFileName = options.outputName ? options.outputName : options.name + '_' + options.version + '.zip';
@@ -186,6 +179,38 @@ module.exports = function (grunt) {
           filesToPackage.push({ dir: dir, name: files[i] });
         }
       }
+    }
+
+    function requireOptions (opts, options) {
+      opts.forEach(function (opt) {
+        if (!options.hasOwnProperty(opt) || options[opt] == null || options[opt].toString().length == 0) {
+          grunt.fail.warn('Error creating Umbraco Package - required property missing: ' + opt);
+          return;
+        }
+      })
+    };
+
+    function validateDirectories (files, options) {
+      if (files.length < 1) {
+        grunt.fail.warn('Error creating Umbraco Package - no source specified');
+        return;
+      }
+      if (files.length > 1) {
+        grunt.fail.warn('Error creating Umbraco Package - too many source files specified');
+        return;
+      }
+      var src = files[0].src[0];
+      var dest = files[0].dest;
+      if (src == null || src.length == 0) {
+        grunt.fail.warn('Error creating Umbraco Package - no source specified');
+        return;
+      }
+      if (dest == null || dest.length == 0) {
+        grunt.fail.warn('Error creating Umbraco Package - no source specified');
+        return;
+      }
+      options.sourceDir = src;
+      options.outputDir = dest;
     }
 
   });
