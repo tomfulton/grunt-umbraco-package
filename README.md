@@ -61,7 +61,7 @@ Leave empty to generate a `package.xml` manifest for your package automatically,
 
 #### readme
 **type:** string | **optional**
-Specify the path to a text file containing your readme contents.  The contents will be pulled into the readme field of the package manifest.
+Contents to use for the `readme` field of the `package.xml` manifest.
 
 #### outputName
 **type:** string | **optional**
