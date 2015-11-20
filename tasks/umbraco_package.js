@@ -76,9 +76,6 @@ module.exports = function (grunt) {
 
       // Load / transform XML Manifest
       options.files = filesToPackage;
-      if (options.readme) {
-        options.readmeContents = grunt.file.read(options.readme);
-      }
       var manifest = grunt.file.read(options.manifest);
       manifest = grunt.template.process(manifest, { data: options });
 
