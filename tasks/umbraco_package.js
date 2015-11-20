@@ -30,14 +30,19 @@ module.exports = function (grunt) {
 
     // Gather files
     var filesToPackage = [];
-    getFilesRecursive(options.sourceDir);
-    filesToPackage = filesToPackage.map(function (f) {
-      return {
-        guid: f.name,
-        dir: f.dir.replace(options.sourceDir, ''),
-        name: f.name,
-        ext: f.name.split('.').pop()
-      };
+    this.files.forEach(function (file) {
+      file.src.forEach(function (sourceDir) {
+        var sourceDirFiles = getFilesRecursive(sourceDir);
+        filesToPackage.push.apply(filesToPackage, sourceDirFiles.map(function (f) {
+          return {
+            guid: f.name,
+            dir: f.dir.replace(sourceDir, ''),
+            sourceDir: sourceDir,
+            name: f.name,
+            ext: f.name.split('.').pop()
+          };
+        }));
+      });
     });
 
     // Avoid duplicate GUIDs
@@ -84,7 +89,7 @@ module.exports = function (grunt) {
       filesToPackage.forEach(function(file) {
 
         // Get the original path of the file
-        var src = path.join(options.sourceDir, file.dir, file.name);
+        var src = path.join(file.sourceDir, file.dir, file.name);
 
         // Append the file to the ZIP
         archive.append(fs.createReadStream(src), { name: file.guid });
@@ -140,7 +145,7 @@ module.exports = function (grunt) {
         filesToPackage.forEach(function(file) {
 
           // Get the original path of the file
-          var src = path.join(options.sourceDir, file.dir, file.name);
+          var src = path.join(file.sourceDir, file.dir, file.name);
 
           // Append the file to the ZIP
           archive.append(fs.createReadStream(src), { name: file.guid });
@@ -168,17 +173,19 @@ module.exports = function (grunt) {
     archive.finalize();
 
     function getFilesRecursive(dir) {
+      var ret = [];
       var files = fs.readdirSync(dir);
       for (var i in files) {
         if (!files.hasOwnProperty(i)) continue;
 
         var name = dir + '/' + files[i];
         if (fs.statSync(name).isDirectory()) {
-          getFilesRecursive(name);
+          ret.push.apply(ret, getFilesRecursive(name));
         } else {
-          filesToPackage.push({ dir: dir, name: files[i] });
+          ret.push({ dir: dir, name: files[i] });
         }
       }
+      return ret;
     }
 
     function requireOptions (opts, options) {
@@ -193,10 +200,6 @@ module.exports = function (grunt) {
     function validateDirectories (files, options) {
       if (files.length < 1) {
         grunt.fail.warn('Error creating Umbraco Package - no source specified');
-        return;
-      }
-      if (files.length > 1) {
-        grunt.fail.warn('Error creating Umbraco Package - too many source files specified');
         return;
       }
       var src = files[0].src[0];
