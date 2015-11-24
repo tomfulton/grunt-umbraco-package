@@ -13,7 +13,8 @@ module.exports = function (grunt) {
     var options = this.options({
       minimumUmbracoVersion: '',
       files: [],
-      cwd: '/'
+      cwd: '/',
+      readme: ''
     });
 
     requireOptions(['name', 'version', 'license', 'licenseUrl', 'url', 'author', 'authorUrl'], options);
@@ -21,6 +22,11 @@ module.exports = function (grunt) {
 
     // Declare the name of the generated ZIP file
     var packageFileName = options.outputName ? options.outputName : options.name + '_' + options.version + '.zip';
+
+    // Ensure output directory exists
+    if (!fs.existsSync(options.outputDir)) {
+      fs.mkdirSync(options.outputDir);
+    }
 
     // Declare the path of the generated ZIP file
     var tmpOutput = path.join(options.outputDir, packageFileName);
