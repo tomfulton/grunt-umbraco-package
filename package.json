@@ -16,6 +16,6 @@
     "path": "~0.4.9",
     "rimraf": "~2.2.6",
     "chalk": "^1.0.0",
-    "js2xmlparser": "^1.0.0"
+    "js2xmlparser": "git@github.com:tomfulton/node-js2xmlparser.git#feature/return-string"
   }
 }

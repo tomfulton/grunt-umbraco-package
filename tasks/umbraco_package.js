@@ -168,6 +168,10 @@ module.exports = function (grunt) {
       archive.append(xml('umbPackage', data, {
         arrayMap: {
           files: 'file'
+        },
+        prettyPrinting: {
+          enabled: true,
+          returnString: "\r\n"
         }
       }), { name:'package.xml' });
     
