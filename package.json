@@ -16,6 +16,19 @@
     "path": "~0.4.9",
     "rimraf": "~2.2.6",
     "chalk": "^1.0.0",
-    "js2xmlparser": "git@github.com:tomfulton/node-js2xmlparser.git#feature/return-string"
+    "js2xmlparser": "https://github.com/tomfulton/node-js2xmlparser/tarball/85ad382d102a9c21c75a39e20017dd5d8e44ace2"
+  },
+  "devDependencies": {
+    "diff": "^2.2.1",
+    "fs": "0.0.2",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "nodeunit": "^0.9.1",
+    "path": "^0.4.10",
+    "unzip": "^0.1.11"
+  },
+  "scripts": {
+    "test": "grunt --gruntfile test/Gruntfile.js"
   }
 }

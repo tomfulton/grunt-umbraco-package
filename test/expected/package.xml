@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<umbPackage>
+	<info>
+		<package>
+			<name>TestPackage</name>
+			<version>0.0.1</version>
+			<license url="http://#">MIT</license>
+			<url>http://www.google.com</url>
+			<requirements>
+				<major>0</major>
+				<minor>0</minor>
+				<patch>0</patch>
+			</requirements>
+		</package>
+		<author>
+			<name>John</name>
+			<website>http://john.com</website>
+		</author>
+		<readme>Hello</readme>
+	</info>
+	<DocumentTypes/>
+	<Templates/>
+	<Stylesheets/>
+	<Macros/>
+	<DictionaryItems/>
+	<Languages/>
+	<DataTypes/>
+	<control/>
+	<Actions/>
+	<files>
+		<file>
+			<guid>package.js</guid>
+			<orgPath>/App_Plugins/TestPackage</orgPath>
+			<orgName>package.js</orgName>
+		</file>
+		<file>
+			<guid>package.manifest</guid>
+			<orgPath>/App_Plugins/TestPackage</orgPath>
+			<orgName>package.manifest</orgName>
+		</file>
+		<file>
+			<guid>script.js</guid>
+			<orgPath>/scripts</orgPath>
+			<orgName>script.js</orgName>
+		</file>
+	</files>
+</umbPackage>
