@@ -18,6 +18,10 @@ This major release included a lot of breaking changes that will require you to r
 #### readme / readmeContents options merged
 The `readme` option has been changed to accept a string containing your desired readme content, rather than a file path to an external file.  You should enter the desired content directly into this option, or use grunt templates to load the content from an external file to use the previous behavior:
 
+```js
+readme: '<%= grunt.file.read("config/readme.txt") %>'
+```
+
 #### multitask
 The task has been converted to a multiTask to enable configuring builds for multiple packages in the same repository.  To support this, you need to wrap your existing configuration with a target name, such as:
 
