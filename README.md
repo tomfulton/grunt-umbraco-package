@@ -1,32 +1,57 @@
 grunt-umbraco-package
 =====================
 
-A grunt task to assist with creating Umbraco packages that can be installed in the Backoffice.
+> A grunt task to automate the creation of installable Umbraco packages from your files.
 
-# Installation
+## Getting Started
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
-    npm install grunt-umbraco-package --save-dev
+```shell
+npm install grunt-umbraco-package --save-dev
+```
 
-# Usage 
+Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
-Define the task in your Gruntfile and specify options for the package
+```js
+grunt.loadNpmTasks('grunt-umbraco-package');
+```
 
-    umbracoPackage: {
-      src: 'dist',		// Path to a folder containing the files to be packaged
-      dest: 'pkg',		// Path to a folder to create the package file
-      options: { }		// Options for package manifest
+
+## Usage Example
+
+```js
+grunt.initConfig({
+  pkg: grunt.file.readJSON('package.json'),
+  umbracoPackage: {
+    dist: {
+      src: 'dist',		  // Path to a folder containing the files to be packaged
+      dest: 'pkg',		  // Path to a folder to create the package file
+      options: {		  // Options for the package.xml manifest
+        name: 'My Awesome Package',
+        version: '0.0.1',
+        url: 'http://our.umbraco.org/projects/developer-tools/my-awesome-package',
+        license: 'MIT',
+        licenseUrl: 'https://opensource.org/licenses/MIT',
+        author: 'Benetton Concubine',
+        authorUrl: 'http://our.umbraco.org/member/1234',
+        readme: 'Please read this!'
+      }
     }
-
-Load the task
-
-    grunt.loadNpmTasks('grunt-umbraco-package');
-
-Run
-
-    grunt umbracoPackage
-
+  }
+});
+```
 
 ## Options
+### Files
+#### src
+**type:** string | **required**
+The path to the folder containing the files to be packaged.  Files should be in the desired structure to install on the target Umbraco site.
+
+#### dest
+**type:** string | **required**
+The directory path to create the generated package file.
+
+### Manifest Options
 #### name
 **type:** string | **required**
 The name of your package.  Used in the package manifest and to generate the package file name.
