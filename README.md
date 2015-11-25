@@ -1,4 +1,4 @@
-grunt-umbraco-package
+grunt-umbraco-package  [![Build Status](https://travis-ci.org/tomfulton/grunt-umbraco-package.svg?branch=master)](https://travis-ci.org/tomfulton/grunt-umbraco-package)
 =====================
 
 > A grunt task to automate the creation of installable Umbraco packages from your files.
