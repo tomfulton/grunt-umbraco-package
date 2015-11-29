@@ -36,7 +36,7 @@ umbracoPackage: {
 To support glob patterns, the `sourceDir` and `outputDir` properties have been removed in favor of `src` and `dest`, which live at the root level of the task.  You should move and rename these options per the example in the README.
 
 #### generated package.xml
-In the new version, the `packageXml` option is no longer required, and the file can be generated automatically based on your configuration.  To enable this, just remove this option and delete the `package.xml` file from your repository.
+In the new version, the `manifest` option is no longer required, and the file can be generated automatically based on your configuration.  To enable this, just remove this option and delete the `package.xml` file from your repository.
 
 If you wish to continue using your own `package.xml` file, you will need to make these changes:
 
