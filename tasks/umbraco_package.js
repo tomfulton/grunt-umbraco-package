@@ -17,7 +17,7 @@ module.exports = function (grunt) {
       readme: ''
     });
 
-    requireOptions(['name', 'version', 'license', 'licenseUrl', 'url', 'author', 'authorUrl'], options);
+    requireOptions(['name', 'version', 'license', 'licenseUrl', 'url', 'requirements', 'author', 'authorUrl'], options);
     validateDirectories(this.files, options);
 
     // Declare the name of the generated ZIP file

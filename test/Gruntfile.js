@@ -24,6 +24,7 @@ module.exports = function (grunt) {
             name: 'TestPackage2',
             version: '0.0.2',
             url: 'http://www.google.com',
+            requirements: {type: '', major: 7},
             license: 'MIT',
             licenseUrl: 'http://#',
             author: 'John',
