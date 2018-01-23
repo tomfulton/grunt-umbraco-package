@@ -6,7 +6,7 @@
       <version>1.0.0</version>
       <license url="MIT">MIT</license>
       <url>https://github.com/imulus/Archetype</url>
-      <requirements>
+      <requirements type="">
         <major>0</major>
         <minor>0</minor>
         <patch>0</patch>

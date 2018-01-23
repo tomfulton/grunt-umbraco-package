@@ -17,7 +17,7 @@ module.exports = function (grunt) {
       readme: ''
     });
 
-    requireOptions(['name', 'version', 'license', 'licenseUrl', 'url', 'author', 'authorUrl'], options);
+    requireOptions(['name', 'version', 'license', 'licenseUrl', 'url', 'requirements', 'author', 'authorUrl'], options);
     validateDirectories(this.files, options);
 
     // Declare the name of the generated ZIP file
@@ -115,9 +115,12 @@ module.exports = function (grunt) {
             },
             url: options.url,
             requirements: {
-              major: 0,
-              minor: 0,
-              patch: 0
+              '@': {
+                type: options.requirements.type ? options.requirements.type : ''
+              },
+              major: options.requirements.major ? options.requirements.major : '0',
+              minor: options.requirements.minor ? options.requirements.minor : '0',
+              patch: options.requirements.patch ? options.requirements.patch : '0'
             }
           },
           author: {
