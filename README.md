@@ -30,6 +30,7 @@ grunt.initConfig({
         name: 'My Awesome Package',
         version: '0.0.1',
         url: 'http://our.umbraco.org/projects/developer-tools/my-awesome-package',
+        requirements: {type: 'strict', major: 7, minor: 6, patch: 0}
         license: 'MIT',
         licenseUrl: 'https://opensource.org/licenses/MIT',
         author: 'Benetton Concubine',
@@ -63,6 +64,10 @@ The version number of your package.  Used in the package manifest and to generat
 #### url
 **type:** string | **required**
 The URL of your package, for the package manifest.
+
+#### requirements
+**type:** json: {type: 'strict', major: 7, minor: 6, patch: 0} |  **optional**
+The minimum Umbraco Version requirement. Leaving any of the version fields empty will default to '0'. Leaving the 'type' field empty will default to 'strict'.
 
 #### license
 **type:** string | **required**

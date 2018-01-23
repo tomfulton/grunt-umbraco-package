@@ -115,9 +115,12 @@ module.exports = function (grunt) {
             },
             url: options.url,
             requirements: {
-              major: 0,
-              minor: 0,
-              patch: 0
+              '@': {
+                type: options.requirements.type ? options.requirements.type : 'strict'
+              },
+              major: options.requirements.major ? options.requirements.major : '0',
+              minor: options.requirements.minor ? options.requirements.minor : '0',
+              patch: options.requirements.patch ? options.requirements.patch : '0'
             }
           },
           author: {
