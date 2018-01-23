@@ -9,6 +9,7 @@ module.exports = function (grunt) {
             name: 'TestPackage',
             version: '0.0.1',
             url: 'http://www.google.com',
+            requirements: {type: 'strict', major: 7, minor: 6, patch: 1},
             license: 'MIT',
             licenseUrl: 'http://#',
             author: 'John',

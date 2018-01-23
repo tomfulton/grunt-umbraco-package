@@ -67,7 +67,7 @@ The URL of your package, for the package manifest.
 
 #### requirements
 **type:** json: {type: 'strict', major: 7, minor: 6, patch: 0} |  **optional**
-The minimum Umbraco Version requirement. Leaving any of the version fields empty will default to '0'. Leaving the 'type' field empty will default to 'strict'.
+The minimum Umbraco Version requirement. Leaving any of the version fields empty will default to '0'. Leaving the 'type' field empty will default to ''.
 
 #### license
 **type:** string | **required**

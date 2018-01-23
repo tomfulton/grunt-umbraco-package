@@ -6,10 +6,10 @@
 			<version>0.0.1</version>
 			<license url="http://#">MIT</license>
 			<url>http://www.google.com</url>
-			<requirements>
-				<major>0</major>
-				<minor>0</minor>
-				<patch>0</patch>
+			<requirements type="strict">
+				<major>7</major>
+				<minor>6</minor>
+				<patch>1</patch>
 			</requirements>
 		</package>
 		<author>

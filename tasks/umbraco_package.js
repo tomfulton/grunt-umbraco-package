@@ -116,7 +116,7 @@ module.exports = function (grunt) {
             url: options.url,
             requirements: {
               '@': {
-                type: options.requirements.type ? options.requirements.type : 'strict'
+                type: options.requirements.type ? options.requirements.type : ''
               },
               major: options.requirements.major ? options.requirements.major : '0',
               minor: options.requirements.minor ? options.requirements.minor : '0',

@@ -6,10 +6,10 @@
       <version><%= version %></version>
       <license url="<%= licenseUrl %>"><%= license %></license>
       <url><%= url %></url>
-      <requirements>
-        <major>0</major>
-        <minor>0</minor>
-        <patch>0</patch>
+      <requirements type="<%= requirements.type %>">
+        <major><%= requirements.major %></major>
+        <minor><%= requirements.minor %></minor>
+        <patch><%= requirements.patch %></patch>
       </requirements>
     </package>
     <author>
